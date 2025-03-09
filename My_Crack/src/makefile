@@ -1,16 +1,29 @@
 Compiler = g++
-Target   = patcher
-B		 = build/
+Target   = Patcher
+B		 = ../build/
+H        = ../headers/
 Flags	 = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+#----------------------------------------------------------------------------------
 
-$(Target): $(B)patcher.o 
-	$(Compiler) $(B)patcher.o -o $(B)patcher.out $(Flags)
+$(Target): $(B)PatcherMain.o $(B)CtorAndDraw.o
+	$(Compiler) $(B)PatcherMain.o $(B)CtorAndDraw.o -o $(B)Patcher.out $(Flags)
+#----------------------------------------------------------------------------------
 
-$(B)patcher.o :    patcher.cpp
-	$(Compiler) -c patcher.cpp -o $(B)patcher.o
+$(B)PatcherMain.o :	PatcherMain.cpp		\
+					$(H)PatcherConsts.h		\
+					$(H)Machine.h			\
+					$(H)CtorAndDraw.h
+	$(Compiler) -c PatcherMain.cpp -o $(B)PatcherMain.o
+#----------------------------------------------------------------------------------
 
+$(B)CtorAndDraw.o :	CtorAndDraw.cpp		\
+					$(H)PatcherConsts.h		\
+					$(H)CtorAndDraw.h
+	$(Compiler) -c CtorAndDraw.cpp -o $(B)CtorAndDraw.o
+#----------------------------------------------------------------------------------
 clean:
-	rm build/*.o
-
+	rm -f $(B)*.o  $(B)*.out
+#----------------------------------------------------------------------------------
 run: 
-	build/patcher.out
+	../build/Patcher.out
+#----------------------------------------------------------------------------------
