@@ -64,6 +64,9 @@ const sf::Color GreenColorAttributes(0, 198, 49, 255);
 #define NAME_HACKING_PROGRAMM "../programm_to_hack/Evgeniuys_Crack.com"
 #define OPENING_MODE "rb+"
 
+const unsigned char HACKING_BYTES2[3] = {0xE9, 0x27, 0x00};
+
+
 #define HACKING_BYTES( ... ) {0xE9, 0x27, 0x00} // 0xEA - опкод near jump
                                                 // 0x27  0x00 - смещение адреcа пароля 
                                                 //           относительно начала программы 

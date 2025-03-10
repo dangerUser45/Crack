@@ -42,7 +42,7 @@ int main()
     HackAnimCntxt* hacking_anim = 0;
 
     bool MusicPlay = true;
-    bool HackProgrammOnce = true;
+    bool HackProgramOnce = true;
     bool DrawHackingAnimation = false;
     bool IsPaused = false;
     char CounterFramesProgressBar = 0;
@@ -65,7 +65,7 @@ int main()
             window_ptr -> clear();
             SetUpAnimatedBackground(&clock_background,  sprite_bgd -> rect, sprite_bgd -> sprite);
 
-            if (HackProgrammOnce)
+            if (HackProgramOnce)
             {
                 window_ptr -> draw (*greeting_text);
                 window_ptr -> draw (*(sprite_context_button -> sprite));
@@ -74,12 +74,12 @@ int main()
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
                 {
                     sf::Vector2i localPosition = sf::Mouse::getPosition(*window_ptr);
-                    if ((localPosition.x >= 1000 && localPosition.x <= 1000 + 326) 
+                    if ((localPosition.x >= 1000 && localPosition.x <= 1000 + 326) // struct IntRect
                     &&  (localPosition.y >= 822  && localPosition.y <= 822 + 181))
                         {
                             Hacking();
                             button_sound -> play();
-                            HackProgrammOnce = false;
+                            HackProgramOnce = false;
                             DrawHackingAnimation = true;
                             hacking_anim = CtorHackingAnimation();
                         }
