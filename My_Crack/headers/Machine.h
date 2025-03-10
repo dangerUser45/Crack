@@ -19,3 +19,9 @@ struct SpriteContext
     sf::Texture* texture;
     sf::IntRect* rect;
 };
+
+struct HackAnimCntxt
+{
+    SpriteContext* sprite_context;
+    sf::Text* text;
+};
