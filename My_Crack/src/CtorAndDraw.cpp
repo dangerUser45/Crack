@@ -13,13 +13,13 @@ sf::RenderWindow* CtorWindow ()
 {
     sf::RenderWindow* window = new sf::RenderWindow(sf::VideoMode(WIDTH_IMAGE_PIX, HEIGHT_WINDOW), NAME_WINDOW, sf::Style::Close | sf::Style::Titlebar);
     
-    window->setVerticalSyncEnabled(true);
-    window->setPosition(sf::Vector2i(CENTRE_RELAT_WINDOW, 0)); 
+    window -> setVerticalSyncEnabled(true);
+    window -> setPosition(sf::Vector2i(CENTRE_RELAT_WINDOW, 0)); 
     
     return window;
 }
 //--------------------------------------------------------------------------------------------------------------------------
-void ProcessingEvents (sf::RenderWindow* window_ptr, sf::Event* event)
+void ProcessingEvents (sf::RenderWindow* window_ptr, sf::Event* event, sf::Sound* key_sound, bool* IsPaused, bool* MusicPlay, sf::Music* music)
 {
     while (window_ptr -> pollEvent(*event))
     {
@@ -33,8 +33,25 @@ void ProcessingEvents (sf::RenderWindow* window_ptr, sf::Event* event)
             window_ptr -> setSize(sf::Vector2u(WIDTH_IMAGE_PIX, HEIGHT_WINDOW));
             return;
             
+            case sf::Event::KeyPressed:
+            {
+                key_sound -> play();
+                
+                if ( event->key.code == sf::Keyboard::Key::Space)
+                {
+                    *IsPaused = !(*IsPaused);
+                    *MusicPlay = !(*MusicPlay);
+                    if (*MusicPlay == true)
+                        music -> play();
+                    else 
+                        music -> pause();
+                }
+                
+                return; 
+            }
+
             default:
-            return;
+                return;
         }
     }
     return;
@@ -54,29 +71,29 @@ sf::Text* CtorGreetingText (sf::Font* font)
 //--------------------------------------------------------------------------------------------------------------------------
 bool SetUpAnimatedBackground (sf::Clock* ptr_clock, sf::IntRect* ptr_rect_background, sf::Sprite* ptr_sprite_background)
 {
-    if (ptr_clock->getElapsedTime().asSeconds() > TIME_BACKGROUND)
+    if (ptr_clock -> getElapsedTime().asSeconds() > TIME_BACKGROUND)
         {
-            if ((ptr_rect_background->top   == HEIGHT_IMAGE_PIX * (HEIGHT_IMAGE_FRAME - 1))
-             && (ptr_rect_background->left == WIDTH_IMAGE_PIX  * (EMPTY_WIDTH_FRAME  - 1)))
+            if ((ptr_rect_background -> top   == HEIGHT_IMAGE_PIX * (HEIGHT_IMAGE_FRAME - 1))
+             && (ptr_rect_background -> left == WIDTH_IMAGE_PIX  * (EMPTY_WIDTH_FRAME  - 1)))
             {
-                ptr_rect_background->top  = 0;
-                ptr_rect_background->left = 0;
+                ptr_rect_background ->  top  = 0;
+                ptr_rect_background -> left = 0;
             }
 
-            if (ptr_rect_background->left == WIDTH_IMAGE_PIX * (WIDTH_IMAGE_FRAME - 1))
+            if (ptr_rect_background -> left == WIDTH_IMAGE_PIX * (WIDTH_IMAGE_FRAME - 1))
             {
-                ptr_rect_background->left = 0;
-                if (ptr_rect_background->top == HEIGHT_IMAGE_PIX * (HEIGHT_IMAGE_FRAME - 1))
-                    ptr_rect_background->top = 0;
+                ptr_rect_background -> left = 0;
+                if (ptr_rect_background -> top == HEIGHT_IMAGE_PIX * (HEIGHT_IMAGE_FRAME - 1))
+                    ptr_rect_background -> top = 0;
                 else 
-                    ptr_rect_background->top += HEIGHT_IMAGE_PIX;
+                    ptr_rect_background -> top += HEIGHT_IMAGE_PIX;
             }
 
             else
-                ptr_rect_background->left += WIDTH_IMAGE_PIX;
+                ptr_rect_background -> left += WIDTH_IMAGE_PIX;
 
-            ptr_sprite_background->setTextureRect(*ptr_rect_background);
-            ptr_clock->restart();
+            ptr_sprite_background -> setTextureRect(*ptr_rect_background);
+            ptr_clock -> restart();
         }
 
     return true;
@@ -93,9 +110,9 @@ SpriteContext* CtorSpriteBackground()
     sf::IntRect* rect_background  = new sf::IntRect({0, 0}, {WIDTH_IMAGE_PIX, HEIGHT_IMAGE_PIX});
     sf::Sprite* sprite_background = new sf::Sprite(*texture_background, *rect_background);
 
-    sprite_context_background->texture = texture_background;
-    sprite_context_background->rect    = rect_background;
-    sprite_context_background->sprite  = sprite_background;
+    sprite_context_background -> texture = texture_background;
+    sprite_context_background -> rect    = rect_background;
+    sprite_context_background -> sprite  = sprite_background;
 
     return sprite_context_background;
 }
@@ -112,11 +129,11 @@ sf::Font* CtorFont(std::string name_font)
 sf::Text* CtorTitleText (sf::Font* font_title_text)
 {
     sf::Text* text_title = new sf::Text;
-    text_title->setFont(*font_title_text);
-    text_title->setString(TITLE);
-    text_title->setCharacterSize(SIZE_FONT_TITLE); // in pixels, not points!
-    text_title->setFillColor(GreenColorAttributes);
-    text_title->setPosition(X_TEXT_POSITION, Y_TEXT_POSITION);
+    text_title -> setFont(*font_title_text);
+    text_title -> setString(TITLE);
+    text_title -> setCharacterSize(SIZE_FONT_TITLE); // in pixels, not points!
+    text_title -> setFillColor(GreenColorAttributes);
+    text_title -> setPosition(X_TEXT_POSITION, Y_TEXT_POSITION);
 
     return text_title;
 }

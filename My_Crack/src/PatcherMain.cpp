@@ -16,9 +16,10 @@
 //--------------------------------------------------------------------------------------------------------------------------
 int main()
 {
-    sf::RenderWindow* window_ptr = CtorWindow();
-
     SpriteContext* sprite_bgd = CtorSpriteBackground();
+
+    sf::RenderWindow* window_ptr = CtorWindow();
+    sf::Music* music = CtorMusic ();
 
     SpriteContext* sprite_context_button = CtorSpriteButton ();
 
@@ -30,14 +31,15 @@ int main()
     sf::Text* greeting_text = CtorGreetingText (font_retro_text);
     sf::Text* final_text    = CtorFinalText (font_retro_text);
 
+    sf::Sound* key_sound    = CtorSound(AUDIO_PATH KEY_SOUND);
+    sf::Sound* button_sound = CtorSound(AUDIO_PATH BUTTON_SOUND);
+
     SpriteContext* ArraySpritesLines[NUMBER_LINE];
     CtorBinaryFrame (ArraySpritesLines);
 
     sf::Clock clock_background;
     sf::Clock clock_progress_bar;
     HackAnimCntxt* hacking_anim = 0;
-
-    sf::Music* music = CtorMusic ();
 
     bool MusicPlay = true;
     bool HackProgrammOnce = true;
@@ -48,22 +50,14 @@ int main()
     while (window_ptr -> isOpen())
     {
         sf::Event event;
-        ProcessingEvents (window_ptr, &event);
+
+        ProcessingEvents (window_ptr, &event, key_sound, &IsPaused, &MusicPlay, music);
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RControl)
         && (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Delete)))
         {
             window_ptr -> close();
             break;
-        }
-
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Key::Space)
-        {
-            IsPaused = !IsPaused;
-            MusicPlay = !MusicPlay;
-            if (MusicPlay == true)
-                music -> play();
-            else music -> pause();
         }
         
         if (!IsPaused)
@@ -84,13 +78,13 @@ int main()
                     &&  (localPosition.y >= 822  && localPosition.y <= 822 + 181))
                         {
                             Hacking();
+                            button_sound -> play();
                             HackProgrammOnce = false;
                             DrawHackingAnimation = true;
                             hacking_anim = CtorHackingAnimation();
                         }
                 }
             }
-
 
             window_ptr -> draw (*(sprite_bgd -> sprite));
             DrawBinaryFrame (window_ptr, ArraySpritesLines);

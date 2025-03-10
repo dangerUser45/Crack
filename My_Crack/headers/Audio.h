@@ -5,3 +5,4 @@
 #endif
 
 sf::Music* CtorMusic ();
+sf::Sound* CtorSound (const char* path_to_sound);

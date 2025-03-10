@@ -7,7 +7,7 @@
 
 #include "Machine.h"
 
-void ProcessingEvents (sf::RenderWindow* window_ptr, sf::Event* event);
+void ProcessingEvents (sf::RenderWindow* window_ptr, sf::Event* event, sf::Sound* key_sound, bool* IsPaused, bool* MusicPlay, sf::Music* music);
 
 bool SetUpAnimatedBackground (sf::Clock* ptr_clock, sf::IntRect* ptr_rect_background, sf::Sprite* ptr_sprite_background);
 

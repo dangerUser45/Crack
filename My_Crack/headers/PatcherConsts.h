@@ -77,7 +77,9 @@ const sf::Color GreenColorAttributes(0, 198, 49, 255);
 #define FONT_TECHO_TITLE "tekno.otf"
 #define FONT_RETRO_TEXT "retro.ttf"
 
-#define MUSIC "Keygen_music_Mortal_kombat_[8bit]_.mp3"
+#define MUSIC "mario_music_background.mp3"
+#define KEY_SOUND "key_sound.ogg"
+#define BUTTON_SOUND "button_sound.mp3"
 
 #define TITLE "C R A C K E D  B Y  D A N E K"
 #define BUTTON_TEXT "CRACK"
