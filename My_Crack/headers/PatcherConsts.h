@@ -59,7 +59,21 @@ const int HEIGHT_FRAME_PROGRESS_BAR      = 14;
 const int EMPTY_WIDTH_FRAME_PROGRESS_BAR = 3;
 const char NUMBER_FRAME_PROGRESS_BAR     = 81;
 
+const int X_LEFT_SIDE_BUTTON = 1000;
+const int X_RIGHT_SIDE_BUTTON = 1326;
+const int Y_TOP_SIDE_BITTON = 822 + 181;
+const int Y_BOTTOM_SIDE_BUTTON = 822;
+
+const int WIDTH_BUTTON = 326;
+const int HEIGTH_BUTTON = 181;
+
+const sf::Vector2f SCALE_BUTTON{0.6,0.6};
+const sf::Vector2f SCALE_PROGRESS_BAR{1.3f, 1.0f};
+
+const int WINDOW_CLOSE = 1;
+
 const sf::Color GreenColorAttributes(0, 198, 49, 255);
+const sf::Color GreenButton(0, 255, 63, 255);
 
 #define NAME_HACKING_PROGRAMM "../programm_to_hack/Evgeniuys_Crack.com"
 #define OPENING_MODE "rb+"

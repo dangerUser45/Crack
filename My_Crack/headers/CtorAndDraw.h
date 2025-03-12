@@ -7,32 +7,41 @@
 
 #include "Machine.h"
 
-void ProcessingEvents (sf::RenderWindow* window_ptr, sf::Event* event, sf::Sound* key_sound, bool* IsPaused, bool* MusicPlay, sf::Music* music);
+bool Logic (Patcher* patcher);
+int DrawCommon (Patcher* patcher);
+void DrawBinaryFrame (Patcher* patcher);
+void ProcessingEvents (Patcher* patcher);
+bool SetUpAnimatedBackground (Patcher* patcher);
+void KeyPressedProcessing (Patcher* patcher);
 
-bool SetUpAnimatedBackground (sf::Clock* ptr_clock, sf::IntRect* ptr_rect_background, sf::Sprite* ptr_sprite_background);
-
+int CtorCommon (Patcher* patcher);
 sf::RenderWindow* CtorWindow ();
-
-sf::Text* CtorGreetingText (sf::Font* font);
-
+sf::Text* CtorGreetingText ( sf::Font* font);
 SpriteContext* CtorSpriteBackground();
-
-HackAnimCntxt* CtorHackingAnimation();
-SpriteContext* CtorSpriteAnimationHacking ();
-sf::Text* CtorMessageHack (sf::Font* font_message_hack);
-bool SetUpHackingAnimation (sf::Clock* clock, SpriteContext* sprite_context, char* const counter_frames);
-
 sf::Font* CtorFont(std::string name_font);
-
 sf::Text* CtorTitleText (sf::Font* font_title_text);
 sf::Text* CtorButtonText (sf::Font* font_message_text);
 SpriteContext* CtorSpriteButton ();
-
 bool CtorBinaryFrame (SpriteContext** sprites_line_ptr);
 SpriteContext* CtorTopLine (sf::Texture* texture_binary_ptr);
 SpriteContext* CtorBottomLine (sf::Texture* texture_binary_ptr);
 SpriteContext* CtorLeftLine (sf::Texture* texture_binary_ptr);
 SpriteContext* CtorRightLine (sf::Texture* texture_binary_ptr);
-void DrawBinaryFrame (sf::RenderWindow* window_ptr, SpriteContext** ArraySpritesLines);
-
 sf::Text* CtorFinalText (sf::Font* font);
+HackAnimCntxt* CtorHackingAnimation ();
+
+int DtorCommon (Patcher* patcher);
+int DtorSpriteBackground (Patcher* patcher);
+int DtorWindowPtr (Patcher* patcher);
+int DtorMusic (Patcher* patcher);
+int DtorSpriteContextButton (Patcher* patcher);
+int DtorFont (Patcher* patcher);
+int DtorText (Patcher* patcher);
+int DtorSoundsBuffers (Patcher* patcher);
+int DtorBinaryFrame (Patcher* patcher);
+int DtorOneLineFrame (Patcher* patcher, NameLine number);
+int DtorHackingAnimation (Patcher* patcher);
+
+SpriteContext* CtorSpriteAnimationHacking ();
+sf::Text* CtorMessageHack (sf::Font* font_message_hack);
+bool SetUpHackingAnimation (Patcher* patcher);

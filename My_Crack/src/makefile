@@ -2,7 +2,8 @@ Compiler = g++
 Target   = Patcher
 B		 = ../build/
 H        = ../headers/
-Flags	 = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
+Flags	 = -lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio -fsanitize=address -fsanitize=undefined -fno-sanitize-recover=all -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow -fno-sanitize=null -fno-sanitize=alignment
+Valgrind_flags = --leak-check=full --track-origins=yes --show-reachable=yes
 #----------------------------------------------------------------------------------
 
 $(Target): $(B)PatcherMain.o $(B)CtorAndDraw.o $(B)Hacking.o $(B)Audio.o
@@ -38,5 +39,10 @@ clean:
 	rm -f $(B)*.o  $(B)*.out
 #----------------------------------------------------------------------------------
 run: 
-	../build/Patcher.out
+	$(B)Patcher.out
 #----------------------------------------------------------------------------------
+valg:
+	valgrind $(Valgrind_flags) $(B)Patcher.out
+#----------------------------------------------------------------------------------
+
+#valgrind --leak-check=full --track-origins=yes --show-reachable=yes ../build/Patcher.out

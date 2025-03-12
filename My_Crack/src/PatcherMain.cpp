@@ -16,96 +16,17 @@
 //--------------------------------------------------------------------------------------------------------------------------
 int main()
 {
-    SpriteContext* sprite_bgd = CtorSpriteBackground();
+    Patcher patcher = {};
+    CtorCommon(&patcher);
 
-    sf::RenderWindow* window_ptr = CtorWindow();
-    sf::Music* music = CtorMusic ();
-
-    SpriteContext* sprite_context_button = CtorSpriteButton ();
-
-    sf::Font* font_techo_text = CtorFont (FONT_TECHO_TITLE);
-    sf::Font* font_retro_text = CtorFont (FONT_RETRO_TEXT);
-
-    sf::Text* button_text   = CtorButtonText (font_techo_text);
-    sf::Text* text_title    = CtorTitleText (font_techo_text);
-    sf::Text* greeting_text = CtorGreetingText (font_retro_text);
-    sf::Text* final_text    = CtorFinalText (font_retro_text);
-
-    sf::Sound* key_sound    = CtorSound(AUDIO_PATH KEY_SOUND);
-    sf::Sound* button_sound = CtorSound(AUDIO_PATH BUTTON_SOUND);
-
-    SpriteContext* ArraySpritesLines[NUMBER_LINE];
-    CtorBinaryFrame (ArraySpritesLines);
-
-    sf::Clock clock_background;
-    sf::Clock clock_progress_bar;
-    HackAnimCntxt* hacking_anim = 0;
-
-    bool MusicPlay = true;
-    bool HackProgramOnce = true;
-    bool DrawHackingAnimation = false;
-    bool IsPaused = false;
-    char CounterFramesProgressBar = 0;
-
-    while (window_ptr -> isOpen())
+    while (patcher.window_ptr -> isOpen())
     {
-        sf::Event event;
-
-        ProcessingEvents (window_ptr, &event, key_sound, &IsPaused, &MusicPlay, music);
-
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RControl)
-        && (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Delete)))
-        {
-            window_ptr -> close();
+        if(Logic (&patcher))
             break;
-        }
-        
-        if (!IsPaused)
-        {
-            window_ptr -> clear();
-            SetUpAnimatedBackground(&clock_background,  sprite_bgd -> rect, sprite_bgd -> sprite);
 
-            if (HackProgramOnce)
-            {
-                window_ptr -> draw (*greeting_text);
-                window_ptr -> draw (*(sprite_context_button -> sprite));
-                window_ptr -> draw (*button_text);
-
-                if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-                {
-                    sf::Vector2i localPosition = sf::Mouse::getPosition(*window_ptr);
-                    if ((localPosition.x >= 1000 && localPosition.x <= 1000 + 326) // struct IntRect
-                    &&  (localPosition.y >= 822  && localPosition.y <= 822 + 181))
-                        {
-                            Hacking();
-                            button_sound -> play();
-                            HackProgramOnce = false;
-                            DrawHackingAnimation = true;
-                            hacking_anim = CtorHackingAnimation();
-                        }
-                }
-            }
-
-            window_ptr -> draw (*(sprite_bgd -> sprite));
-            DrawBinaryFrame (window_ptr, ArraySpritesLines);
-
-            window_ptr -> draw (*text_title);
-
-            if (CounterFramesProgressBar <= NUMBER_FRAME_PROGRESS_BAR - 1)
-            {
-                if (DrawHackingAnimation)
-                {
-                    window_ptr -> draw (*(hacking_anim -> text));
-                    SetUpHackingAnimation (&clock_progress_bar, hacking_anim -> sprite_context, &CounterFramesProgressBar);
-                    window_ptr -> draw (*(hacking_anim -> sprite_context -> sprite));
-                }
-            }
-
-            else
-                window_ptr -> draw (*final_text);
-
-            window_ptr -> display ();
-        }
+        DrawCommon(&patcher);
     }
+
+    DtorCommon (&patcher);
 }
 //--------------------------------------------------------------------------------------------------------------------------

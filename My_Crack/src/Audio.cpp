@@ -1,5 +1,6 @@
 #include "../headers/PatcherConsts.h"
 #include "../headers/Audio.h"
+#include "../headers/Machine.h"
 
 #ifndef SFML_included
     #include <SFML/Audio.hpp>
@@ -21,8 +22,10 @@ sf::Music* CtorMusic ()
     return music;
 }
 //--------------------------------------------------------------------------------------------------------------------------
-sf::Sound* CtorSound (const char* path_to_sound)
+SoundStruct* CtorSound (const char* path_to_sound)
 {
+    SoundStruct* sound_struct = new SoundStruct;
+
     sf::SoundBuffer* buffer = new sf::SoundBuffer;
     if (!buffer -> loadFromFile(path_to_sound))
         assert(0);
@@ -30,6 +33,9 @@ sf::Sound* CtorSound (const char* path_to_sound)
     sf::Sound* sound = new sf::Sound;
     sound -> setBuffer(*buffer);
     
-    return sound;
+    sound_struct -> sound_buffer = buffer;
+    sound_struct -> sound = sound;
+
+    return sound_struct;
 }
 //--------------------------------------------------------------------------------------------------------------------------

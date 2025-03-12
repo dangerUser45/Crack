@@ -1,8 +1,10 @@
 #pragma once 
 
+#include "../headers/Machine.h"
+
 #ifndef SFML_included
     #include <SFML/Audio.hpp>
 #endif
 
 sf::Music* CtorMusic ();
-sf::Sound* CtorSound (const char* path_to_sound);
+SoundStruct* CtorSound (const char* path_to_sound);
