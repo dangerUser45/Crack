@@ -6,6 +6,8 @@
 #include <SFML/Audio.hpp>
 #define SFML_included
 
+const int ERROR  = -1;
+
 const float TIME_BACKGROUND   = 0.05f;
 const float TIME_PROGRESS_BAR = 0.1f;
 

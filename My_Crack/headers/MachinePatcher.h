@@ -1,8 +1,11 @@
 #pragma once
 
+#include "ConstsPatcher.h"
+
 #ifndef SFML_included
     #include <SFML/Graphics.hpp>
     #include <SFML/System.hpp>
+    #include <SFML/Audio.hpp>
 #endif
 
 enum NameLine 

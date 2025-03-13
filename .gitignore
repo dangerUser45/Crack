@@ -1,3 +1,4 @@
 *.exe
 *.o
 /My_Crack/build/
+/.vscode

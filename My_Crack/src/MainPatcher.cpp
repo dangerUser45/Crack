@@ -1,17 +1,13 @@
-#include "../headers/PatcherConsts.h"
-#include "../headers/Machine.h"
-#include "../headers/CtorAndDraw.h"
-#include "../headers/Hacking.h"
-#include "../headers/Audio.h"
+#include "../headers/CtorPatcher.h"
+#include "../headers/LogicPatcher.h"
+#include "../headers/DrawPatcher.h"
+#include "../headers/DtorPatcher.h"
 
 #ifndef SFML_included
     #include <SFML/Graphics.hpp>
     #include <SFML/System.hpp>
     #include <SFML/Audio.hpp>
 #endif
-
-#include <iostream>
-#include <assert.h>
 
 //--------------------------------------------------------------------------------------------------------------------------
 int main()
