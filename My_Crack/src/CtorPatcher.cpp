@@ -1,6 +1,6 @@
 #include "../headers/ConstsPatcher.h"
 #include "../headers/CtorPatcher.h"
-#include "../headers/COLOR.h"
+#include "../headers/Color.h"
 
 #ifndef SFML_included
     #include <SFML/Graphics.hpp>

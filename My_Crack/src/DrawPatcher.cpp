@@ -19,46 +19,64 @@ int DrawCommon (Patcher* patcher)
 
         if (patcher -> HackProgramOnce)
         {
-            patcher -> window_ptr -> draw (*patcher -> greeting_text);
-            patcher -> window_ptr -> draw (*(patcher -> sprite_context_button -> sprite));
-            patcher -> window_ptr -> draw (*patcher -> button_text);
-
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-            {
-                sf::Vector2i localPosition = sf::Mouse::getPosition(*patcher -> window_ptr);
-                if ((localPosition.x >= X_LEFT_SIDE_BUTTON    && localPosition.x <= X_RIGHT_SIDE_BUTTON)
-                &&  (localPosition.y >= Y_BOTTOM_SIDE_BUTTON  && localPosition.y <= Y_TOP_SIDE_BITTON))
-                    {
-                        Hacking();
-                        patcher -> button_sound_struct -> sound -> play();
-                        patcher -> HackProgramOnce = false;
-                        patcher -> DrawHackingAnimation = true;
-                        patcher  -> hacking_anim = CtorHackingAnimation();
-                    }
-            }
+            DrawStartFrames (patcher);
+            CheckButton(patcher);
         }
 
         patcher -> window_ptr -> draw (*(patcher -> sprite_bgd -> sprite));
         DrawBinaryFrame (patcher);
-
         patcher -> window_ptr -> draw (*patcher -> text_title);
 
-        if ((patcher -> CounterFramesProgressBar) <= NUMBER_FRAME_PROGRESS_BAR - 1)
-        {
-            if ((patcher -> DrawHackingAnimation))
-            {
-                patcher -> window_ptr -> draw (*(patcher -> hacking_anim -> text));
-                SetUpHackingAnimation (patcher);
-                patcher -> window_ptr -> draw (*(patcher -> hacking_anim -> sprite_context -> sprite));
-            }
-        }
-
-        else
-            patcher -> window_ptr -> draw (*patcher -> final_text);
-
+        CheckProgressBar (patcher);
         patcher -> window_ptr -> display ();
     }
     return 0;
+}
+//--------------------------------------------------------------------------------------------------------------------------
+void CheckButton (Patcher* patcher)
+{
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+    {
+        sf::Vector2i localPosition = sf::Mouse::getPosition(*patcher -> window_ptr);
+        if ((localPosition.x >= X_LEFT_SIDE_BUTTON    && localPosition.x <= X_RIGHT_SIDE_BUTTON)
+        &&  (localPosition.y >= Y_BOTTOM_SIDE_BUTTON  && localPosition.y <= Y_TOP_SIDE_BITTON))
+        {
+            Hacking();
+            patcher -> button_sound_struct -> sound -> play();
+            patcher -> HackProgramOnce = false;
+            patcher -> DrawHackingAnimation = true;
+            patcher  -> hacking_anim = CtorHackingAnimation();
+        }
+    }
+
+    return;
+}
+//--------------------------------------------------------------------------------------------------------------------------
+void DrawStartFrames (Patcher* patcher)
+{
+    patcher -> window_ptr -> draw (*patcher -> greeting_text);
+    patcher -> window_ptr -> draw (*(patcher -> sprite_context_button -> sprite));
+    patcher -> window_ptr -> draw (*patcher -> button_text);
+
+    return;
+}
+//--------------------------------------------------------------------------------------------------------------------------
+void CheckProgressBar (Patcher* patcher)
+{
+    if ((patcher -> CounterFramesProgressBar) <= NUMBER_FRAME_PROGRESS_BAR - 1)
+    {
+        if ((patcher -> DrawHackingAnimation))
+        {
+            patcher -> window_ptr -> draw (*(patcher -> hacking_anim -> text));
+            SetUpHackingAnimation (patcher);
+            patcher -> window_ptr -> draw (*(patcher -> hacking_anim -> sprite_context -> sprite));
+        }
+    }
+
+    else
+        patcher -> window_ptr -> draw (*patcher -> final_text);
+
+    return;
 }
 //--------------------------------------------------------------------------------------------------------------------------
 bool SetUpAnimatedBackground (Patcher* patcher)

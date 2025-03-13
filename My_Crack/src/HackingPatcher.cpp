@@ -1,6 +1,6 @@
 #include "../headers/ConstsPatcher.h"
 #include "../headers/HackingPatcher.h"
-#include "../headers/COLOR.h"
+#include "../headers/Color.h"
 
 #include <stdio.h>
 

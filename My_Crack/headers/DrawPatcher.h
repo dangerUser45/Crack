@@ -7,11 +7,12 @@
 
 #include "MachinePatcher.h"
 
-bool Logic (Patcher* patcher);
-void ProcessingEvents (Patcher* patcher);
-void KeyPressedProcessing (Patcher* patcher);
-
 int DrawCommon (Patcher* patcher);
+void DrawStartFrames (Patcher* patcher);
+
+void CheckButton (Patcher* patcher);
+void CheckProgressBar (Patcher* patcher);
+
 void DrawBinaryFrame (Patcher* patcher);
 bool SetUpAnimatedBackground (Patcher* patcher);
 
