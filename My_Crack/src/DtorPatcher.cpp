@@ -89,7 +89,6 @@ int DtorSoundsBuffers (Patcher* patcher)
 //--------------------------------------------------------------------------------------------------------------------------
 int DtorBinaryFrame (Patcher* patcher)
 {
-    printf ("patcher -> ArraySpritesLines[0] -> texture = %p\n", patcher -> ArraySpritesLines[0] -> texture);
     delete patcher -> ArraySpritesLines[0] -> texture;
 
     DtorOneLineFrame (patcher, TOP_LINE);
